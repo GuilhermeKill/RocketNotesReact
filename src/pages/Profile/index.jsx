@@ -4,8 +4,23 @@ import { Input } from "../../componets/Input";
 import { Button } from "../../componets/Button";
 import { Link } from "react-router-dom";
 
-export function Profile (){
+import { useState } from "react";
+import { useAuth } from '../../hooks/auth'
 
+
+export function Profile (){
+    const { user } = useAuth()
+    const [name, setName] = useState(user.name)
+    const [email, setEmail] = useState(user.email)
+    const [oldPassword, setOldPassword] = useState("")
+    const [newPassword, setNewPassword] = useState("")
+
+
+    
+
+
+
+    
     return(
         <Container>
             <header>
@@ -37,24 +52,31 @@ export function Profile (){
                     placeholder="Nome"
                     type="text"
                     icon={FiUser}
+                    value={name}
+                    onChange={e => {e.target.value}}
                 />
 
                 <Input 
                     placeholder="E-mail"
                     type="text"
                     icon={FiMail}
+                    value={email}
+                    onChange={e => {e.target.value}}
+
                 />
 
                 <Input 
                     placeholder="Senha atual"
                     type="password"
                     icon={FiLock}
+                    onChange={e => {e.target.value}}
                 />
 
                 <Input 
                     placeholder="Nova senha"
                     type="password"
                     icon={FiUser}
+                    onChange={e => {e.target.value}}
                 />
 
                 <Button 
