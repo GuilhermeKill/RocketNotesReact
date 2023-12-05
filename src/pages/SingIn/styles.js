@@ -21,12 +21,12 @@ export const Form = styled.form`
 
 
     > h1 {
-        font-size 48px;
+        font-size: 48px;
         color: ${({ theme }) => theme.COLORS.ORANGE};
     }
 
     > h2 {
-        font-size 24px;
+        font-size: 24px;
         margin: 48px 0;
     }
     
