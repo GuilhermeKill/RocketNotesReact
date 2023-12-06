@@ -6,16 +6,24 @@ import { NoteItem } from '../../componets/NoteItem'
 import { Section } from '../../componets/Section'
 import { Button } from '../../componets/Button'
 
+import { useNavigate } from "react-router-dom";
+
 import { useState } from "react";
 
 import { Container, Form } from './styles'
+import { api } from '../../services/api'
 
 export function New(){
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("")
+
     const [links, setLinks] = useState([])
     const [newLinks, setNewLinks] = useState("")
 
     const [tags, setTags] = useState([])
     const [newTags, setNewTags] = useState("")
+
+    const navigate = useNavigate()
 
     function handleLinks(){
         setLinks(prevState => [...prevState, newLinks])
@@ -38,6 +46,18 @@ export function New(){
         setTags(prevState => prevState.filter((tag, index) => index !== deleted))
     }
 
+    async function handleNewNote(){
+        await api.post("/notes",{
+            title,
+            description,
+            tags,
+            links
+        })
+
+        alert("Nota criada com sucesso!")
+        navigate("/")
+    }
+
 
     return(
         <Container>
@@ -54,9 +74,13 @@ export function New(){
 
                     <Input 
                         placeholder="Título "
+                        onChange={e => setTitle(e.target.value)}
                     />
 
-                    <TextArea placeholder="observações"/>
+                    <TextArea 
+                        placeholder="observações"
+                        onChange={e => setDescription(e.target.value)}
+                    />
 
                   <Section title="Links úteis">
                     {
@@ -102,7 +126,10 @@ export function New(){
                     </div>
                   </Section>
                     
-                  <Button title="salvar"/>
+                  <Button 
+                    title="salvar"
+                    onClick={handleNewNote}
+                  />
 
 
                 </Form>
