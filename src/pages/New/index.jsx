@@ -5,10 +5,21 @@ import { TextArea } from '../../componets/TextArea'
 import { NoteItem } from '../../componets/NoteItem'
 import { Section } from '../../componets/Section'
 import { Button } from '../../componets/Button'
- 
+
+import { useState } from "react";
+
 import { Container, Form } from './styles'
 
 export function New(){
+    const [links, setLinks] = useState([])
+    const [newLinks, setNewLinks] = useState("")
+
+    function handleLinks(){
+        setLinks(prevState => [...prevState, newLinks])
+
+        setNewLinks("")
+    }
+
 
     return(
         <Container>
@@ -30,8 +41,26 @@ export function New(){
                     <TextArea placeholder="observações"/>
 
                   <Section title="Links úteis">
-                    <NoteItem value="htt´s://rocketseat.com.br"/>
-                    <NoteItem  isNew/>
+                    {
+                        links.map((link, index) => (
+                            <NoteItem  
+                                key={String(index)}
+                                value={link}
+                                onClick={() => {}}
+                            />
+
+                        ))
+                    }
+                        <NoteItem
+                            isNew
+                            placeholder="Novo Link"
+                            value={newLinks}
+                            onChange={e => setNewLinks(e.target.value)}
+                            onClick={handleLinks}
+                        />
+
+                        
+
                   </Section>
 
                   <Section title="Marcadores">
