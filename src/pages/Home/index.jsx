@@ -8,9 +8,21 @@ import { Header } from '../../componets/Header'
 import { ButtonText } from '../../componets/ButtonText'
 import { Note } from '../../componets/Note'
 
+import { api } from '../../services/api'
+import { useEffect, useState } from 'react'
 
 export function Home(){
-    
+    const [tags, setTags] = useState([])
+
+
+
+    useEffect(() => {
+        async function fetchTags(){
+            const response = await api.get("/tags")
+            setTags(response.data)
+        }
+        fetchTags()
+    },[])
 
     return(
         <Container>
@@ -22,8 +34,16 @@ export function Home(){
 
             <Menu>
                 <li><ButtonText title="todos" isActive/></li>
-                <li><ButtonText title="React"/></li>
-                <li><ButtonText title="node"/></li>
+                {
+                    tags && tags.map(tag => (
+                        <li key={String(tag.id)}>
+                            <ButtonText
+                
+                                title={tag.name}
+                            />
+                        </li>
+                    ))
+                }
             </Menu>
 
             <Search>

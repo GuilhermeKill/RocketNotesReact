@@ -47,6 +47,18 @@ export function New(){
     }
 
     async function handleNewNote(){
+        if(!title && !tags && !links){
+            return alert("Preencha todos os campos!")
+        }
+
+        if(newLinks){
+            return alert("Você colocou a URL, mas, esqueceu de clicar no botão de adicionar")
+        }
+
+        if(newTags){
+            return alert("Você colocou a TAG, mas, esqueceu de clicar no botão de adicionar")
+        }
+
         await api.post("/notes",{
             title,
             description,
