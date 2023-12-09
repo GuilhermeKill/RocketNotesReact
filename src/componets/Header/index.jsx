@@ -10,6 +10,7 @@ export function Header() {
   
 
   const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
+  
   return (
     <Container>
 
@@ -21,7 +22,7 @@ export function Header() {
 
         <div>
           <span>Bem-vindo</span>
-          <strong>Rodrigo Gonçalves</strong>
+          <strong>{user.name}</strong>
         </div>
       </Profile>
 
